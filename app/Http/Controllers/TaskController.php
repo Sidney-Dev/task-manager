@@ -69,9 +69,12 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Request $request, Task $task)
     {
-        
+        if ($request->user()->cannot('delete', $task)) {
+            return redirect()->back();
+        }
+
         $task->delete();
         return redirect()->back();
     }

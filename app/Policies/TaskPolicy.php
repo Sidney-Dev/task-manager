@@ -38,14 +38,19 @@ class TaskPolicy
     public function update(User $user, Task $task): bool
     {
         //
+        return $user->id === $task->user_id ? Response::allow() : Response::deny('You do not own this task');
+
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Task $task): bool
+    public function delete(User $user, Task $task)
     {
         //
+        // Response::denyWithStatus(403)
+        // Response::denyAsNotFound()
+        return $user->id === $task->user_id ? Response::allow() : Response::deny('You do not own this task');
     }
 
     /**
@@ -63,4 +68,16 @@ class TaskPolicy
     {
         //
     }
+
+    /**
+     * Method using to authorize/deny all actions
+     */
+    // public function before(User $user, string $ability): bool|null
+    // {
+    //     if ($user->isAdministrator()) {
+    //         return true;
+    //     }
+    
+    //     return null;
+    // }
 }
