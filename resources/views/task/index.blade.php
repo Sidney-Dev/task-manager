@@ -35,6 +35,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Created</th>
+                                <th scope="col">Updated</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,6 +44,7 @@
                                         <th scope="row">{{ $task->id }}</th>
                                         <td>{{ $task->name }}</td>
                                         <td>{{ $task->created_at->diffForHumans() }}</td>
+                                        <td>{{ $task->updated_at->diffForHumans() }}</td>
                                         <td>
                                             <form method="post" action="{{ route('task.destroy', ['task' => $task->id]) }}">
                                                 @csrf
@@ -51,7 +53,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <a href="{{ route('task.show', $task->id) }}" class="btn-btn-warning">Edit</a>
+                                            @include('partials.task.update-modal')
                                         </td>
                                     </tr>
                                 @endforeach
